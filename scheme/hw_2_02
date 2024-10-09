@@ -1,0 +1,6 @@
+(define (every f s)
+    (if (empty? s)
+        '()
+        (sentence (f (first s)) (every f (butfirst s)))
+    ) 
+)

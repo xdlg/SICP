@@ -1,0 +1,26 @@
+(define (switch s)
+     (if (empty? s)
+        '()
+        (if (or (equal? (first s) 'you) (equal? (first s) 'You))
+            (sentence 'I (switch-the-rest (butfirst s)))
+            (switch-the-rest s)
+        )
+    )
+)
+
+(define (switch-the-rest s)
+    (if (empty? s)
+        '()
+        (sentence (switch-word (first s)) (switch-the-rest (butfirst s)))
+    )
+)
+
+(define (switch-word w)
+    (cond
+        ((equal? w 'I) 'you)
+        ((equal? w 'me) 'you)
+        ((equal? w 'you) 'me)
+        (else w)
+    )
+)
+

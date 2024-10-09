@@ -1,0 +1,41 @@
+(define (iterative-improve good-enough? improve-guess)
+    (lambda (guess reference)
+        (if (good-enough? guess reference)
+            guess
+            ((iterative-improve good-enough? improve-guess)
+                (improve-guess guess reference) reference)
+        )
+    )
+)
+
+
+(define tolerance 0.00001)
+
+
+(define (good-enough-sqrt? guess radicand)
+    (< (abs (- (square guess) radicand)) tolerance)
+)
+
+(define (improve-sqrt guess radicand)
+    (average guess (/ radicand guess))
+)
+
+(define (average x y)
+    (/ (+ x y) 2))
+
+(define (iterative-improve-sqrt initial-guess radicand)
+    ((iterative-improve good-enough-sqrt? improve-sqrt) initial-guess radicand)
+)
+
+
+(define (good-enough-fixed-point? guess old-guess)
+    (< (abs (- guess old-guess)) tolerance) 
+)
+
+(define (improve-fixed-point guess f)
+    (f guess)
+)
+
+(define (iterative-improve-fixed-point initial-guess f)
+    ((iterative-improve good-enough-fixed-point? improve-fixed-point) initial-guess f)
+)

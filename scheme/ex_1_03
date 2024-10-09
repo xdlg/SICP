@@ -1,0 +1,8 @@
+(define (square x) (* x x))
+(define (sum_of_squares x y) (+ (square x) (square y)))
+(define (max x y) (if (> x y) x y))
+(define (f x y z) (
+    sum_of_squares
+        (max x y)
+        (if (= (max x y) x) (max y z) (max x z))
+))

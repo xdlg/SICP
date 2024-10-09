@@ -1,0 +1,12 @@
+(define (ordered? nums)
+    (if (empty? (butfirst nums))
+        #t
+        (if (and (<= (first nums) (first (butfirst nums)))
+                (ordered? (butfirst nums))
+            )
+            #t
+            #f
+        )
+    )
+)
+

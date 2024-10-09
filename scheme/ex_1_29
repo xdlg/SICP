@@ -1,0 +1,23 @@
+(define (integral f a b n)
+    (* (/ (h a b n) 3.0) (sum f a b n 0))
+)
+
+(define (sum f a b n k)
+    (if (> k n)
+        0
+        (+ (* (factor n k) (f (+ a (* k (h a b n)))))
+           (sum f a b n (+ k 1))
+        )
+    )
+)
+
+(define (factor n k)
+    (cond ((or (= k 0) (= k n)) 1.0)
+          ((= 0 (modulo k 2)) 2.0)
+          (else 4.0)
+    )
+)
+
+(define (h a b n)
+    (/ (- b a) (* n 1.0))
+)

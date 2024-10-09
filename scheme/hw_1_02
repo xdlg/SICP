@@ -1,0 +1,6 @@
+(define (squares x)
+    (if (equal? (bf x) '())
+        (square (first x))
+        (sentence (square (first x)) (squares (bf x)))
+    )
+)

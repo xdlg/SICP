@@ -1,0 +1,9 @@
+(define (ends-e s)
+    (if (empty? s)
+        '()
+        (sentence
+            (if (equal? (last (first s)) 'e) (first s) '())
+            (ends-e (butfirst s))
+        )
+    )
+)

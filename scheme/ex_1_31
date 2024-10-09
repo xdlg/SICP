@@ -1,0 +1,34 @@
+(define (product term a b)
+    (if (> a b)
+        1
+        (* (term a) (product term (+ a 1) b))
+    )
+)
+
+(define (factorial x)
+    (define (f x)
+        (if (= x 0) 1 x)
+    )
+
+    (product f 0 x)
+)
+
+(define (pi-wallis n)
+    (define (term x)
+        (/ (* (+ x 1) (+ x 2))
+           (power (+ (* 2 x) 3) 2)
+        )
+    )
+
+    (define (power x n)
+        (if (= n 0)
+            1
+            (* x (power x (- n 1)))
+        )
+    )
+
+    (* (power 4.0 (+ n 2))
+       (product term 0 n)
+    )
+)
+
