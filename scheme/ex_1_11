@@ -6,12 +6,13 @@
 )
 
 (define (f-iter n)
-    (f-iter-priv n 0 0)
+    (f-iter-priv 2 1 0 n)
 )
 
-(define (f-iter-priv n value count)
-    (if (= count n)
-        value
-
+(define (f-iter-priv a b c count)
+    (cond ((= count 0) c)
+          ((= count 1) b)
+          ((= count 2) a)
+          (else (f-iter-priv (+ a (* 2 b) (* 3 c)) a b (- count 1)))
     )
 )

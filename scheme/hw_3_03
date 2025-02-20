@@ -1,0 +1,13 @@
+(define (sum-of-factors n i sum)
+    (cond ((= i n) sum)
+          ((= (remainder n i) 0) (sum-of-factors n (+ i 1) (+ sum i)))
+          (else (sum-of-factors n (+ i 1) sum))
+    )
+)
+
+(define (next-perf n)
+    (if (= (sum-of-factors n 1 0) n)
+        n
+        (next-perf (+ n 1))
+    )
+)

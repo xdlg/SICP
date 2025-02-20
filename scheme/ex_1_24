@@ -1,0 +1,56 @@
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder 
+          (square (expmod base (/ exp 2) m))
+          m))
+        (else
+         (remainder 
+          (* base (expmod base (- exp 1) m))
+          m))))
+
+(define (fermat-test n)
+  (define (try-it a)
+    (= (expmod a n n) a))
+  (try-it (+ 1 (random (- n 1)))))
+
+(define (fast-prime? n times)
+  (cond ((= times 0) #t)
+        ((fermat-test n) 
+         (fast-prime? n (- times 1)))
+        (else #f)))
+
+(define (timed-prime-test n)
+    (define (display-n n)
+        (display n)
+        (newline)
+        (time (fast-prime? n 1000))
+    )
+
+    (if (fast-prime? n 1000)
+        (display-n n)
+    )
+)
+
+(define (consecutive-odd-integers min max f)
+    (define (iterate i max f)
+        (f i)
+        (loop (+ i 2) max f)
+    )
+
+    (define (loop i max f)
+        (if (<= i max)
+            (iterate i max f)
+        )
+    )
+
+    (define (start-i i)
+        (if (odd? i) i (+ i 1))
+    )
+
+    (loop (start-i min) max f)
+)
+
+(define (test-consecutive-primes min max)
+    (consecutive-odd-integers min max timed-prime-test)
+)

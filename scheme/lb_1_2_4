@@ -1,0 +1,6 @@
+(define (dupls-removed s)
+    (cond ((empty? s) '())
+          ((member? (first s) (butfirst s)) (dupls-removed (butfirst s)))
+          (else (sentence (first s) (dupls-removed (butfirst s))))
+    )
+)
